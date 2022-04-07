@@ -114,24 +114,24 @@ private let devWalkFrames = [
 ]
 
 let devSkin: CharacterSkin = CharacterSkin(name: "Dev", price: 100000, description: "RESTART GAME FOR FULL EFFECT", image: UIImage(named: "redCircle")!, frames: devWalkFrames, owned: UserDefaults.standard.bool(forKey: devSkinOwnedKey), ownedKey: devSkinOwnedKey)
-
-let queerioSkinOwnedKey = "QUEERIO_OWNED_KEY"
-
-private let queerioWalkFrames = [
-    SKTexture(imageNamed: "QueerioPNG"),
-    SKTexture(imageNamed: "QueerioPNG2"),
-    SKTexture(imageNamed: "QueerioPNG3"),
-    SKTexture(imageNamed: "QueerioPNG4"),
-    SKTexture(imageNamed: "QueerioPNG5"),
-    SKTexture(imageNamed: "QueerioPNG6"),
-    SKTexture(imageNamed: "QueerioPNG5"),
-    SKTexture(imageNamed: "QueerioPNG4"),
-    SKTexture(imageNamed: "QueerioPNG3"),
-    SKTexture(imageNamed: "QueerioPNG2"),
-]
-
-let queerioSkin: CharacterSkin = CharacterSkin(name: "Queerio", price: 400, description: "When life gives you lemons, beat it with a plunger.", image: UIImage(named: "QueerioPNG")!, frames: queerioWalkFrames, owned: UserDefaults.standard.bool(forKey: queerioSkinOwnedKey), ownedKey: queerioSkinOwnedKey)
-
+//
+//let queerioSkinOwnedKey = "QUEERIO_OWNED_KEY"
+//
+//private let queerioWalkFrames = [
+//    SKTexture(imageNamed: "QueerioPNG"),
+//    SKTexture(imageNamed: "QueerioPNG2"),
+//    SKTexture(imageNamed: "QueerioPNG3"),
+//    SKTexture(imageNamed: "QueerioPNG4"),
+//    SKTexture(imageNamed: "QueerioPNG5"),
+//    SKTexture(imageNamed: "QueerioPNG6"),
+//    SKTexture(imageNamed: "QueerioPNG5"),
+//    SKTexture(imageNamed: "QueerioPNG4"),
+//    SKTexture(imageNamed: "QueerioPNG3"),
+//    SKTexture(imageNamed: "QueerioPNG2"),
+//]
+//
+//let queerioSkin: CharacterSkin = CharacterSkin(name: "Queerio", price: 400, description: "When life gives you lemons, beat it with a plunger.", image: UIImage(named: "QueerioPNG")!, frames: queerioWalkFrames, owned: UserDefaults.standard.bool(forKey: queerioSkinOwnedKey), ownedKey: queerioSkinOwnedKey)
+//
 
 let psychedelicSkinOwnedKey = "PSYCHEDELIC_OWNED_KEY"
 
@@ -155,7 +155,7 @@ let psychedelicSkin: CharacterSkin = CharacterSkin(name: "Psychedelic", price: 3
 //ALL SKINS IN AN ARRAY
 let skins = [
     normalPandaSkin,
-    queerioSkin,
+    //queerioSkin,
     soundcloudRapperSkin,
     gutePandaSkin,
     psychedelicSkin,
