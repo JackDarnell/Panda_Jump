@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Pixel Digivolve.otf">
+            <string>PixelDigivolve</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Game View Controller-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Panda_Jump" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8aa-yV-Osq"/>
+                        <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
+                    </layoutGuides>
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <connections>
+                        <segue destination="4gt-6n-OXd" kind="presentation" identifier="showCustomizeSegue" id="DIB-oR-nJu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-263" y="150"/>
+        </scene>
+        <!--CustomizeVC-->
+        <scene sceneID="VWa-3d-WeE">
+            <objects>
+                <viewController id="4gt-6n-OXd" customClass="CustomizeVC" customModule="Panda_Jump" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="w7P-3a-bIB"/>
+                        <viewControllerLayoutGuide type="bottom" id="Uir-ay-SCt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="oWR-Az-HvL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" style="plain" rowHeight="110" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TbD-Fj-wx0">
+                                <rect key="frame" x="0.0" y="75" width="375" height="592"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" red="0.85847008229999999" green="0.85520470140000004" blue="0.61176395419999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="CustomizeCell" rowHeight="110" id="KbC-Me-gJQ" customClass="CustomizeCell" customModule="Panda_Jump" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="110"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KbC-Me-gJQ" id="7Ux-OD-vc2">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="109.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name of thing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggR-YQ-ZDe">
+                                                    <rect key="frame" x="8" y="8" width="233" height="47"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="PixelDigivolve" family="Pixel Digivolve" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="panda" translatesAutoresizingMaskIntoConstraints="NO" id="ER7-dc-Z5b">
+                                                    <rect key="frame" x="272" y="8" width="93" height="93"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="20$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rs9-O6-Wmi">
+                                                    <rect key="frame" x="8" y="54" width="233" height="47"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="PixelDigivolve" family="Pixel Digivolve" pointSize="22"/>
+                                                    <color key="textColor" red="0.51010185480000003" green="0.9296178222" blue="0.60783898830000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkicon" translatesAutoresizingMaskIntoConstraints="NO" id="jwu-W2-wZ2">
+                                                    <rect key="frame" x="8" y="52" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="KxX-yl-woK"/>
+                                                        <constraint firstAttribute="width" constant="50" id="wfG-vt-bWH"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="jwu-W2-wZ2" firstAttribute="leading" secondItem="7Ux-OD-vc2" secondAttribute="leading" constant="8" id="OtF-E7-cJz"/>
+                                                <constraint firstAttribute="bottom" secondItem="jwu-W2-wZ2" secondAttribute="bottom" constant="8" id="v1a-Of-Ojz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="checkImageView" destination="jwu-W2-wZ2" id="mkL-hG-dTy"/>
+                                            <outlet property="nameLabel" destination="ggR-YQ-ZDe" id="0Ea-zQ-1PB"/>
+                                            <outlet property="previewImageView" destination="ER7-dc-Z5b" id="GME-8A-yHt"/>
+                                            <outlet property="priceLabel" destination="rs9-O6-Wmi" id="22z-Nu-DRS"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xxo-B6-VO0">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customize" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FDQ-dC-F3u">
+                                        <rect key="frame" x="122.5" y="25" width="130" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="UfX-HC-an6"/>
+                                            <constraint firstAttribute="width" constant="130" id="cP7-uv-ghu"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="PixelDigivolve" family="Pixel Digivolve" pointSize="22"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$$$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DG-VA-woT">
+                                        <rect key="frame" x="260.5" y="29.5" width="106.5" height="26"/>
+                                        <fontDescription key="fontDescription" name="PixelDigivolve" family="Pixel Digivolve" pointSize="22"/>
+                                        <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="highlightedColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cHF-kQ-xaD" customClass="RoundButton" customModule="Panda_Jump" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="27" width="90" height="31"/>
+                                        <color key="backgroundColor" red="1" green="0.99998784070000002" blue="0.99999201299999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="Eie-K8-IbX"/>
+                                            <constraint firstAttribute="height" constant="31" id="moi-ba-ioe"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="PixelDigivolve" family="Pixel Digivolve" pointSize="22"/>
+                                        <state key="normal" title="Close">
+                                            <color key="titleColor" red="0.51515382529999998" green="0.7917782068" blue="0.96081066130000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="closeButtonPressed:" destination="4gt-6n-OXd" eventType="touchUpInside" id="4wL-Yt-8dY"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.51515382528305054" green="0.79177820682525635" blue="0.96081066131591797" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="0i7-Xh-q3z"/>
+                                    <constraint firstAttribute="trailing" secondItem="3DG-VA-woT" secondAttribute="trailing" constant="8" id="1rG-TK-2PK"/>
+                                    <constraint firstItem="cHF-kQ-xaD" firstAttribute="leading" secondItem="Xxo-B6-VO0" secondAttribute="leading" constant="8" id="Acu-zW-uiC"/>
+                                    <constraint firstItem="FDQ-dC-F3u" firstAttribute="centerY" secondItem="Xxo-B6-VO0" secondAttribute="centerY" constant="5" id="CWy-WS-76D"/>
+                                    <constraint firstItem="cHF-kQ-xaD" firstAttribute="centerY" secondItem="Xxo-B6-VO0" secondAttribute="centerY" constant="5" id="Tey-e6-X7k"/>
+                                    <constraint firstItem="FDQ-dC-F3u" firstAttribute="centerX" secondItem="Xxo-B6-VO0" secondAttribute="centerX" id="WpX-CR-157"/>
+                                    <constraint firstItem="3DG-VA-woT" firstAttribute="leading" secondItem="FDQ-dC-F3u" secondAttribute="trailing" constant="8" id="cZq-mt-Evu"/>
+                                    <constraint firstItem="3DG-VA-woT" firstAttribute="centerY" secondItem="Xxo-B6-VO0" secondAttribute="centerY" constant="5" id="x5n-g4-a0z"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Xxo-B6-VO0" firstAttribute="leading" secondItem="oWR-Az-HvL" secondAttribute="leading" id="BWF-RE-NGn"/>
+                            <constraint firstItem="TbD-Fj-wx0" firstAttribute="leading" secondItem="oWR-Az-HvL" secondAttribute="leading" id="HWe-sf-AKJ"/>
+                            <constraint firstItem="Uir-ay-SCt" firstAttribute="top" secondItem="TbD-Fj-wx0" secondAttribute="bottom" id="XJR-UR-uuA"/>
+                            <constraint firstItem="Xxo-B6-VO0" firstAttribute="top" secondItem="oWR-Az-HvL" secondAttribute="top" id="YXq-dR-SFC"/>
+                            <constraint firstAttribute="trailing" secondItem="TbD-Fj-wx0" secondAttribute="trailing" id="fYm-3G-Q4X"/>
+                            <constraint firstItem="TbD-Fj-wx0" firstAttribute="top" secondItem="Xxo-B6-VO0" secondAttribute="bottom" id="hCc-nJ-Cxl"/>
+                            <constraint firstAttribute="trailing" secondItem="Xxo-B6-VO0" secondAttribute="trailing" id="hgA-gu-sGT"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="coinsLabel" destination="3DG-VA-woT" id="nsG-VZ-RgQ"/>
+                        <outlet property="tableView" destination="TbD-Fj-wx0" id="wuG-bm-7cI"/>
+                        <segue destination="G6U-KS-RPZ" kind="show" identifier="goToCustomizeObjectVC" id="a9M-kT-28Q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bos-3d-D20" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="474" y="150"/>
+        </scene>
+        <!--Customize ObjectVC-->
+        <scene sceneID="iUF-vw-w4I">
+            <objects>
+                <viewController id="G6U-KS-RPZ" customClass="CustomizeObjectVC" customModule="Panda_Jump" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rzj-5K-s8u"/>
+                        <viewControllerLayoutGuide type="bottom" id="ohO-cX-xP6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4Cw-dp-Fvw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ba9-2W-Mlh">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customize" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRT-mn-QFV">
+                                        <rect key="frame" x="122.5" y="25" width="130" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="130" id="2Eh-pM-hi9"/>
+                                            <constraint firstAttribute="height" constant="35" id="SBO-BV-5BV"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="PixelDigivolve" family="Pixel Digivolve" pointSize="22"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$$$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jpp-o2-HYH">
+                                        <rect key="frame" x="260.5" y="29.5" width="106.5" height="26"/>
+                                        <fontDescription key="fontDescription" name="PixelDigivolve" family="Pixel Digivolve" pointSize="22"/>
+                                        <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="highlightedColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ItD-Jz-w5a" customClass="RoundButton" customModule="Panda_Jump" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="27.5" width="90" height="31"/>
+                                        <color key="backgroundColor" red="1" green="0.99998784070000002" blue="0.99999201299999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="e7B-mV-Gco"/>
+                                            <constraint firstAttribute="height" constant="31" id="sCq-LI-xhh"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="PixelDigivolve" family="Pixel Digivolve" pointSize="22"/>
+                                        <state key="normal" title="Back">
+                                            <color key="titleColor" red="0.51515382529999998" green="0.7917782068" blue="0.96081066130000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backButtonPressed:" destination="G6U-KS-RPZ" eventType="touchUpInside" id="2kg-cJ-2r7"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.51515382529999998" green="0.7917782068" blue="0.96081066130000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="Hve-4k-tmR"/>
+                                    <constraint firstItem="NRT-mn-QFV" firstAttribute="centerY" secondItem="ba9-2W-Mlh" secondAttribute="centerY" constant="5" id="LXB-Qz-KRg"/>
+                                    <constraint firstAttribute="trailing" secondItem="Jpp-o2-HYH" secondAttribute="trailing" constant="8" id="Pmh-EK-R56"/>
+                                    <constraint firstItem="NRT-mn-QFV" firstAttribute="centerX" secondItem="ba9-2W-Mlh" secondAttribute="centerX" id="gBx-CQ-BtK"/>
+                                    <constraint firstItem="ItD-Jz-w5a" firstAttribute="leading" secondItem="ba9-2W-Mlh" secondAttribute="leading" constant="8" id="gP5-kx-na0"/>
+                                    <constraint firstItem="Jpp-o2-HYH" firstAttribute="centerY" secondItem="ba9-2W-Mlh" secondAttribute="centerY" constant="5" id="hkZ-cv-L0j"/>
+                                    <constraint firstItem="ItD-Jz-w5a" firstAttribute="centerY" secondItem="ba9-2W-Mlh" secondAttribute="centerY" constant="5" id="j2w-8C-VLg"/>
+                                    <constraint firstItem="Jpp-o2-HYH" firstAttribute="leading" secondItem="NRT-mn-QFV" secondAttribute="trailing" constant="8" id="vDa-LF-4oy"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="panda" translatesAutoresizingMaskIntoConstraints="NO" id="HR4-es-cTK">
+                                <rect key="frame" x="62" y="83" width="250" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="Ntk-Vz-rln"/>
+                                    <constraint firstAttribute="height" constant="250" id="vvK-Xp-eQU"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Of Thing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imS-Fa-ybe">
+                                <rect key="frame" x="16" y="341" width="343" height="39.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Qth-LT-wlZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PixelDigivolve" family="Pixel Digivolve" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Svh-Ba-k0x">
+                                <rect key="frame" x="16" y="389" width="343" height="182"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" name="PixelDigivolve" family="Pixel Digivolve" pointSize="13"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8xb-Ca-RDx" customClass="RoundButton" customModule="Panda_Jump" customModuleProvider="target">
+                                <rect key="frame" x="87.5" y="579" width="200" height="80"/>
+                                <color key="backgroundColor" red="0.51515382529999998" green="0.7917782068" blue="0.96081066130000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="ZDW-5v-mMh"/>
+                                    <constraint firstAttribute="width" constant="200" id="bYS-MB-R4W"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PixelDigivolve" family="Pixel Digivolve" pointSize="30"/>
+                                <state key="normal" title="500$">
+                                    <color key="titleColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="purchaseButtonPressed:" destination="G6U-KS-RPZ" eventType="touchUpInside" id="bG5-xp-SRU"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8xb-Ca-RDx" firstAttribute="top" secondItem="Svh-Ba-k0x" secondAttribute="bottom" constant="8" id="7OF-wA-W44"/>
+                            <constraint firstItem="ohO-cX-xP6" firstAttribute="top" secondItem="8xb-Ca-RDx" secondAttribute="bottom" constant="8" id="CEq-Is-Sl5"/>
+                            <constraint firstAttribute="trailing" secondItem="ba9-2W-Mlh" secondAttribute="trailing" id="CId-6t-6Oz"/>
+                            <constraint firstItem="imS-Fa-ybe" firstAttribute="leading" secondItem="4Cw-dp-Fvw" secondAttribute="leadingMargin" id="LIn-Kq-0hr"/>
+                            <constraint firstItem="HR4-es-cTK" firstAttribute="top" secondItem="ba9-2W-Mlh" secondAttribute="bottom" constant="8" id="LqE-kG-4IZ"/>
+                            <constraint firstItem="imS-Fa-ybe" firstAttribute="trailing" secondItem="4Cw-dp-Fvw" secondAttribute="trailingMargin" id="LzA-3g-wNG"/>
+                            <constraint firstItem="Svh-Ba-k0x" firstAttribute="leading" secondItem="4Cw-dp-Fvw" secondAttribute="leadingMargin" id="Ykj-QM-QSA"/>
+                            <constraint firstItem="Svh-Ba-k0x" firstAttribute="trailing" secondItem="4Cw-dp-Fvw" secondAttribute="trailingMargin" id="bcM-9L-Vci"/>
+                            <constraint firstItem="ba9-2W-Mlh" firstAttribute="leading" secondItem="4Cw-dp-Fvw" secondAttribute="leading" id="dCF-Ys-g0y"/>
+                            <constraint firstItem="Svh-Ba-k0x" firstAttribute="top" secondItem="imS-Fa-ybe" secondAttribute="bottom" constant="8" id="fDS-nL-mNb"/>
+                            <constraint firstItem="HR4-es-cTK" firstAttribute="centerX" secondItem="4Cw-dp-Fvw" secondAttribute="centerX" id="fbu-yy-l23"/>
+                            <constraint firstItem="imS-Fa-ybe" firstAttribute="top" secondItem="HR4-es-cTK" secondAttribute="bottom" constant="8" id="lEl-Iy-XR7"/>
+                            <constraint firstItem="ba9-2W-Mlh" firstAttribute="top" secondItem="4Cw-dp-Fvw" secondAttribute="top" id="uhj-yv-boi"/>
+                            <constraint firstItem="8xb-Ca-RDx" firstAttribute="centerX" secondItem="4Cw-dp-Fvw" secondAttribute="centerX" id="zbG-Iu-Gf9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="descriptionTextView" destination="Svh-Ba-k0x" id="WGU-cQ-dvR"/>
+                        <outlet property="imageView" destination="HR4-es-cTK" id="i6D-bw-ris"/>
+                        <outlet property="moneyLabel" destination="Jpp-o2-HYH" id="JYI-ut-tzu"/>
+                        <outlet property="nameLabel" destination="imS-Fa-ybe" id="d0v-p1-t0b"/>
+                        <outlet property="purchaseButton" destination="8xb-Ca-RDx" id="lgi-MR-56E"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e62-im-bpH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1220" y="150"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="checkicon" width="16" height="13"/>
+        <image name="panda" width="1488" height="1440"/>
+    </resources>
+    <color key="tintColor" red="0.58431372549019611" green="0.76470588235294112" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+</document>
