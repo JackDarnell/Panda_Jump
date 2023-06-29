@@ -6,8 +6,10 @@
 //  Copyright © 2017 Jack Darnell. All rights reserved.
 //
 
+//Computer should play the game first and then
 
-//MAKE IT SO THAT NO BARRELS SPA
+
+//MAKE IT SO THAT NO BARRELS SPAWN
 import SpriteKit
 
 

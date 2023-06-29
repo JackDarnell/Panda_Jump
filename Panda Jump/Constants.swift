@@ -170,7 +170,7 @@ private let psychedelicWalkFrames = [
     SKTexture(imageNamed: "Psychedelic2"),
 ]
 
-let psychedelicSkin: CharacterSkin = CharacterSkin(name: "Psychedelic", price: 3000, description: "Wouldn't it be dope to be a caterpillar? You're walking around eating leaves, decide to take a long nap, and when you wake up you can fly", image: UIImage(named: "Psychedelic1")!, frames: psychedelicWalkFrames, owned: UserDefaults.standard.bool(forKey: psychedelicSkinOwnedKey), ownedKey: psychedelicSkinOwnedKey)
+let psychedelicSkin: CharacterSkin = CharacterSkin(name: "Psychedelic", price: 3000, description: "Wouldn't it be cool to be a caterpillar? You're walking around eating leaves, decide to take a long nap, and when you wake up you can fly", image: UIImage(named: "Psychedelic1")!, frames: psychedelicWalkFrames, owned: UserDefaults.standard.bool(forKey: psychedelicSkinOwnedKey), ownedKey: psychedelicSkinOwnedKey)
 
 //ALL SKINS IN AN ARRAY
 let skins = [
