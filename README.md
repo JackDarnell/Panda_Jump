@@ -5,7 +5,8 @@ A game similar to flappy bird about jumping over boulders as a panda :)
 Early in highschool I learned how to make iOS apps and I thought it would be fun to make a simple iOS app similar to Flappy Bird. Panda Jump is very simple, just tap the screen to jump over boulders as many boulders as you can and attempt to get a highscore. All of the sprites are either designed by me or some of my friends from virginia. Lots of inside jokes from when I was in highschool are included in the game for fun. 
 
 ### Screenshots
-![Untitled design-3](https://github.com/JackDarnell/Panda_Jump/assets/16767985/5daff075-4933-4c98-80d0-4e1580dbe427)
+![output-onlinepngtools-3](https://github.com/JackDarnell/Panda_Jump/assets/16767985/3f31a182-e525-4135-821a-fc316f302480)
+
 
 
 
