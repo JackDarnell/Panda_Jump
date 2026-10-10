@@ -8,96 +8,44 @@
 
 import SpriteKit
 
-class PlayerSprite : SKSpriteNode {
-    
-    //private var isGameOver: Bool!
-    
+class PlayerSprite: SKSpriteNode {
+
+    static let nodeName = "PlayerSprite"
     private let walkingActionKey = "action_walking"
-    
-    //MAKE CURRENT SKIN PULL FROM THE KEYCHAIN SO IT SAVES PERSISTENTLY
-    
-    
-    var currentSkin = skins[UserDefaults.standard.integer(forKey: currentSkinIndexKey)]
-    
-    let jumpSound = SKAction.playSoundFileNamed("jumping_sound.wav", waitForCompletion: false)
-    
-    //let jumpTexture = SKTexture(imageNamed: "jumpingPanda")
-    let pandaTexture = SKTexture(imageNamed: "panda2")
-    
-    
-    public static func newInstance() -> PlayerSprite {
+    private let skin = GameData.currentSkin
+
+    static func newInstance() -> PlayerSprite {
         let player = PlayerSprite(imageNamed: "panda2")
-        
-        player.name = "PlayerSprite"
-        //emitter?.emissionAngle = 0
-        
+        player.name = nodeName
         player.size = CGSize(width: 50, height: 50)
-        
         player.zPosition = 6
-        player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width / 2)
-        player.physicsBody?.categoryBitMask = PlayerCategory
-        player.physicsBody?.contactTestBitMask = BarrelCategory
-        player.physicsBody?.isDynamic = true
-        player.physicsBody?.restitution = 0
-        player.physicsBody?.allowsRotation = false
-        player.physicsBody?.contactTestBitMask = BarrelCategory | ScoreCategory
-        player.physicsBody?.collisionBitMask = BarrelCategory | FloorCategory
-       // player.addChild(emitter!)
+
+        let body = SKPhysicsBody(circleOfRadius: player.size.width / 2)
+        body.categoryBitMask = PlayerCategory
+        body.contactTestBitMask = BarrelCategory | ScoreCategory
+        body.collisionBitMask = BarrelCategory | FloorCategory
+        body.isDynamic = true
+        body.restitution = 0
+        body.allowsRotation = false
+        player.physicsBody = body
         return player
     }
-    
-    public func update(deltaTime : TimeInterval, isNotJumping: Bool, isGameOver: Bool) {
-        //self.isGameOver = isGameOver
-        //print(isNotJumping)
-        //timeSinceLastHit += deltaTime
-        if isNotJumping == false {
-            if let action = action(forKey: walkingActionKey) {
-                action.speed = 0
-                zRotation = CGFloat(1 * (Double.pi / 7))
-                
 
-            }
+    /// Runs the walk cycle while on the ground and tilts the player while in the air.
+    func update(isOnGround: Bool) {
+        if let walking = action(forKey: walkingActionKey) {
+            walking.speed = isOnGround ? 1 : 0
+            zRotation = isOnGround ? 0 : .pi / 7
         } else {
-            if isNotJumping == true {
-                if let action = action(forKey: walkingActionKey) {
-                    action.speed = 1
-                    zRotation = 0
-                }
-            }
-        }
-        
-        if action(forKey: walkingActionKey) == nil{
             zRotation = 0
-            let walkingAction = SKAction.repeatForever(
-                SKAction.animate(with: currentSkin.frames,
-                                 timePerFrame: 0.08,
-                                 resize: false,
-                                 restore: true))
-            
-            run(walkingAction, withKey:walkingActionKey)
-            
-            
+            let walking = SKAction.repeatForever(
+                SKAction.animate(with: skin.frames, timePerFrame: 0.08, resize: false, restore: true))
+            run(walking, withKey: walkingActionKey)
         }
-
-        
-    }
-    
-    public func jump() {
-        //zRotation = CGFloat(1 * (Double.pi / 4))
-        //texture = jumpTexture
-        //playSound(soundVariable: jumpSound)
-        print("JUMPING")
-        let jump = SKAction.applyImpulse(CGVector(dx: 0.0, dy: 50.0), duration: 0.1)
-        run(jump)
-        
-    }
-    func playSound(soundVariable : SKAction)
-    {
-        if UserDefaults.standard.bool(forKey: MuteKey) == false {
-            run(soundVariable)
-            print("PLAYING SOUND AFTER JUMP")
-        }
-        
     }
 
+    func jump() {
+        run(SKAction.applyImpulse(CGVector(dx: 0, dy: 50), duration: 0.1))
+        SoundManager.shared.play(SoundManager.jumpSound, on: self)
+    }
 }

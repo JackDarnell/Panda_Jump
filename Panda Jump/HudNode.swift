@@ -8,298 +8,153 @@
 
 import SpriteKit
 
-class HudNode : SKNode {
-    
-    private let scoreNode = SKLabelNode(fontNamed: "PixelDigivolve") //TODO import pixel digivolve font into assets
-    private let coinsNode = SKLabelNode(fontNamed: "PixelDigivolve")
-    private(set) var score : Int = 0
-    private var highScore : Int = 0
-    private var showingHighScore = false
-    //private var playNode = SKLabelNode(fontNamed: "PixelDigivolve")
-    private var playNode = SKSpriteNode(imageNamed: "png_play_button")
-    private var checkLeaderboardNode = SKSpriteNode(imageNamed: "png_leaderboards_button")
-    private var customizeNode = SKSpriteNode(imageNamed: "png_customize_button")
-    //private var checkLeaderboardNode = SKLabelNode(fontNamed: "PixelDigivolve")
-    private var leaderboardsNode : SKSpriteNode!
-    private var leaderBoardNode : SKSpriteNode!
-    private var gameOverNode = SKLabelNode(fontNamed: "PixelDigivolve")
-    private var bestScoreNode = SKLabelNode(fontNamed: "PixelDigivolve")
-    private var finishedScoreNode = SKLabelNode(fontNamed: "PixelDigivolve")
-    private var emojiRewardNode = SKLabelNode()
-    //private var muteButtonNode = SKSpriteNode(imageNamed: ")
-    var gameIsOver: Bool!
-    var playButtonAction : (() -> ())?
-    var checkLeaderboardAction : (() -> ())?
-    let emitter = SKEmitterNode(fileNamed: "fire.sks")
-    let GameVC = GameViewController()
+class HudNode: SKNode {
 
-    let soundButtonTexture = SKTexture(imageNamed: "speaker_on")
-    let soundButtonTextureOff = SKTexture(imageNamed: "speaker_off")
-    var soundButton : SKSpriteNode! = nil
-    //var coinSound = NSURL(fileURLWithPath:Bundle.mainBundle().pathForResource("coinSound", ofType: "wav")!)
-    let coinSound = SKAction.playSoundFileNamed("coinSound.wav", waitForCompletion: false)
-    //let jumpSound = SKAction.playSoundFileNamed("jumping_sound.wav", waitForCompletion: false)
-    //TODO: GET BROWN BACKROUND ASSET WITH MEDAL SCORE AND BEST FROM ALEX OR MAKE IT MYSELF
-    
-    
-    public func setup(size: CGSize) {
-        let defaults = UserDefaults.standard
+    private let scoreNode = SKLabelNode(fontNamed: PixelFontName)
+    private let coinsNode = SKLabelNode(fontNamed: PixelFontName)
+    private let gameOverNode = SKLabelNode(fontNamed: PixelFontName)
+    private let bestScoreNode = SKLabelNode(fontNamed: PixelFontName)
+    private let playNode = SKSpriteNode(imageNamed: "png_play_button")
+    private let leaderboardNode = SKSpriteNode(imageNamed: "png_leaderboards_button")
+    private let customizeNode = SKSpriteNode(imageNamed: "png_customize_button")
+    private let soundButtonTexture = SKTexture(imageNamed: "speaker_on")
+    private let soundButtonTextureOff = SKTexture(imageNamed: "speaker_off")
+    private var soundButton: SKSpriteNode!
+
+    private(set) var score = 0
+    private(set) var isNewHighScore = false
+    private(set) var gameIsOver = false
+    private var highScore = 0
+    private var size = CGSize.zero
+    private var bottomInset: CGFloat = 0
+
+    var playButtonAction: (() -> Void)?
+    var leaderboardAction: (() -> Void)?
+    var customizeAction: (() -> Void)?
+
+    /// `topInset` is the space taken by the notch and the banner ad; `bottomInset` is the home indicator.
+    func setup(size: CGSize, topInset: CGFloat, bottomInset: CGFloat) {
         removeAllChildren()
-        gameIsOver = false
-        //defaults.set(3000, forKey: CoinsKey)
-        highScore = defaults.integer(forKey: ScoreKey)
-        coinsNode.text = "\(defaults.integer(forKey: CoinsKey))ƒ"
-        gameOverNode.text = "Game Over"
-        scoreNode.name = "ScoreNode"
-        //playNode.text = "Play Again"
-        //checkLeaderboardNode.text = "Leaderboard"
-        //playNode!.isHidden = false
-        
-        //THESE FIX THE USABLE INVISIBLE BUTTONS
-        
-        gameOverNode.position = CGPoint(x: UIScreen.main.bounds.size.width / 2, y: UIScreen.main.bounds.size.height + 100)
-        bestScoreNode.position = CGPoint(x: UIScreen.main.bounds.size.width / 2, y: UIScreen.main.bounds.size.height + 75)
-        playNode.position = CGPoint(x: UIScreen.main.bounds.size.width * 2 + playNode.size.width + 10, y: UIScreen.main.bounds.size.height - 400)
-        checkLeaderboardNode.position = CGPoint(x: UIScreen.main.bounds.size.width * 2, y: UIScreen.main.bounds.size.height - 400)
-        customizeNode.position = CGPoint(x: UIScreen.main.bounds.size.width * 40 - customizeNode.size.width - 10, y: UIScreen.main.bounds.size.height - 400)
-        
- 
-        //END OF BUTTONS GLITCH FIX
-        
-        customizeNode.zPosition = 10
-        checkLeaderboardNode.zPosition = 10
-        
-        coinsNode.zPosition = 10
+        self.size = size
+        self.bottomInset = bottomInset
+        highScore = GameData.highScore
+        let topY = size.height - topInset
+
         coinsNode.fontSize = 25
-        coinsNode.fontColor = SKColor(red:0.99, green:0.92, blue:0.55, alpha:1.0)
-        coinsNode.position = CGPoint(x: UIScreen.main.bounds.size.width - coinsNode.frame.width, y: UIScreen.main.bounds.size.height - 75)
-        
-        scoreNode.text = "\(score)"
-        //scoreNode.fontColor = UIColor.darkText
+        coinsNode.fontColor = CoinColor
+        coinsNode.horizontalAlignmentMode = .right
+        coinsNode.position = CGPoint(x: size.width - 16, y: topY - 40)
+        coinsNode.zPosition = 10
+
         scoreNode.fontSize = 70
-        scoreNode.position = CGPoint(x: size.width / 2, y: size.height - 150)
+        scoreNode.position = CGPoint(x: size.width / 2, y: topY - 110)
         scoreNode.zPosition = 10
-                //emitter?.xAcceleration = -500
-        soundButton = SKSpriteNode(texture: SoundManager.sharedInstance.isMuted ?
-            soundButtonTextureOff : self.soundButtonTexture)
-        
+
+        soundButton = SKSpriteNode(texture: SoundManager.shared.isMuted ? soundButtonTextureOff : soundButtonTexture)
         soundButton.zPosition = 20
-        soundButton.position = CGPoint(x: UIScreen.main.bounds.size.width * 4, y: UIScreen.main.bounds.size.width * 2)
-        
-        addChild(soundButton)
+
+        updateScoreboard()
         addChild(scoreNode)
         addChild(coinsNode)
-        //scoreNode.addChild(emitter!)
-        
     }
-    
-    public func addPoint() {
+
+    func addPoint() {
         score += 1
-        //print(highScore)
-        emitter?.particleScale = 0.2
-        emitter?.targetNode = scoreNode
-        emitter?.particleColor = UIColor.purple
-                //emitter?.particleSize = CGSize(width: 40.1, height: 40.1)
-        //emitter?.run(SKAction.fadeOut(withDuration: 1))
-        //if score % 10 == 0 {
-            var coins = UserDefaults.standard.integer(forKey: CoinsKey)
-            coins += 1
-            UserDefaults.standard.set(coins, forKey: CoinsKey)
-          
-            
-        //} else {
-            //make coin sound
-            //run(SKAction.playSoundFileNamed("coinSound.wav", waitForCompletion: false))
-        
-        playSound(soundVariable: coinSound)
-       
-        
-        
-        //}
-        
+        GameData.coins += 1
+        SoundManager.shared.play(SoundManager.coinSound, on: self)
         updateScoreboard()
-        
-        
-    //UserDefaults.standard.set(0, forKey: ScoreKey)
-        
+
         if score > highScore {
-            
             highScore = score
-            let defaults = UserDefaults.standard
-            
-            defaults.set(score, forKey: ScoreKey)
-            
-            
-            //MAKE SURE THIS CODE IS EFFICIENT:
-            
-            GameVC.uploadHighScore(score: highScore)
-            //MAKE SURE CODE ABOVE IS EFFICIENT
-            
-            /* I think this code adds the flames when you get a highscore, cant be sure though lol
-            if scoreNode.children.contains(emitter!) == false {
-                scoreNode.addChild(emitter!)
-            }
-            */
-           // print(defaults.integer(forKey: scoreKey))
-            //print("\(score)")
-            
-            if !showingHighScore {
-                showingHighScore = true
-                
+            GameData.highScore = score
+
+            if !isNewHighScore {
+                isNewHighScore = true
                 scoreNode.run(SKAction.scale(to: 1.5, duration: 0.25))
-                scoreNode.fontColor = UIColor(red:0.87, green:0.89, blue:0.29, alpha:1.0)//SKColor(red:0.99, green:0.92, blue:0.55, alpha:1.0)
+                scoreNode.fontColor = UIColor(red: 0.87, green: 0.89, blue: 0.29, alpha: 1.0)
             }
         }
     }
 
-    public func resetPoints() {
-        score = 0
-        
-        updateScoreboard()
-        
-        if showingHighScore {
-            showingHighScore = false
-            scoreNode.removeAllChildren()
-            scoreNode.run(SKAction.scale(to: 0.75, duration: 0.25))
-            scoreNode.fontColor = SKColor.white
-        }
-    }
-    
-    /// Updates the score label to show the current score.
     private func updateScoreboard() {
-        coinsNode.text = "\(UserDefaults.standard.integer(forKey: CoinsKey))ƒ"
+        coinsNode.text = "\(GameData.coins)ƒ"
         scoreNode.text = "\(score)"
-        //print("\(score)")
-    }
-    
-    func touchBeganAtPoint(point: CGPoint) {
-        if soundButton.contains(point) {
-            handleSoundButtonHover(isHovering: true)
-        }
-    }
-    
-    func touchMovedToPoint(point: CGPoint) {
-        if soundButton.contains(point) {
-            handleSoundButtonHover(isHovering: true)
-        }
-    }
-    
-    func touchEndedAtPoint(point: CGPoint) {
-        
-        
-        if playNode.contains(point) {
-            if playNode.contains(point) && playButtonAction != nil {
-                playButtonAction!()
-            }
-        } 
-        
-        
-        if checkLeaderboardNode.contains(point) {
-            GameVC.checkLeaderboard()
-        }
-        
-        if customizeNode.contains(point) {
-            GameVC.goToCustomizeVC()
-        }
-        
-        if soundButton.contains(point) {
-            handleSoundButtonClick()
-        }
     }
 
-    
-    public func gameOver() {
-        
-        let movePlayNode = SKAction.move(to: CGPoint(x: UIScreen.main.bounds.size.width / 2 + playNode.size.width + 15, y: 285), duration: 0.5)
-        let moveCheckLeaderboardsNode = SKAction.move(to: CGPoint(x: UIScreen.main.bounds.size.width / 2, y: 285), duration: 0.5)
-        let moveCustomizeNode = SKAction.move(to: CGPoint(x: UIScreen.main.bounds.size.width / 2 - playNode.size.width - 15, y: 285), duration: 0.5)
-        let moveScoreNode = SKAction.move(to: CGPoint(x: UIScreen.main.bounds.size.width / 2, y: 365), duration: 0.5)
-        let moveGameOverNode = SKAction.move(to: CGPoint(x: UIScreen.main.bounds.size.width / 2, y: 485), duration: 0.5)
-        let moveBestScoreNode = SKAction.move(to: CGPoint(x: UIScreen.main.bounds.size.width / 2, y: 450), duration: 0.5)
-        
-        if showingHighScore == true {
-            scoreNode.fontColor = SKColor(red:0.99, green:0.92, blue:0.55, alpha:1.0)
-        }
-        scoreNode.removeAllChildren()
+    func setScoreHidden(_ hidden: Bool) {
+        scoreNode.isHidden = hidden
+    }
+
+    func gameOver() {
+        guard !gameIsOver else { return }
         gameIsOver = true
+
+        let midX = size.width / 2
+        let buttonSize = CGSize(width: 70, height: 70)
+        let buttonY = size.height * 0.427
+
+        if isNewHighScore {
+            scoreNode.fontColor = CoinColor
+        }
+
         gameOverNode.text = "Game Over"
-        //playNode.text = "Play Again"
-        
-        playNode.isPaused = false
+        gameOverNode.zPosition = 9
+        gameOverNode.position = CGPoint(x: midX, y: size.height + 100)
+
         bestScoreNode.text = "Best: \(highScore)"
         bestScoreNode.fontSize = 20
-        //playNode.position = CGPoint(x: UIScreen.main.bounds.size.width / 2, y: UIScreen.main.bounds.size.height - 325)
-        //gameOverNode.position = CGPoint(x: UIScreen.main.bounds.size.width / 2, y: UIScreen.main.bounds.size.height - 150)
-        //playNode.position = CGPoint(x: UIScreen.main.bounds.size.width / 2, y: UIScreen.main.bounds.size.height - 300)
-        
-        //playNode.fontColor = SKColor(red:0.99, green:0.92, blue:0.55, alpha:1.0)
         bestScoreNode.zPosition = 9
-        playNode.zPosition = 9
-        playNode.size = CGSize(width: 70, height: 70)
-        checkLeaderboardNode.size = CGSize(width: 70, height: 70)
-        customizeNode.size = CGSize(width: 70, height: 70)
-        //checkLeaderboardNode.fontSize = 25
-        //checkLeaderboardNode.fontColor = SKColor(red:0.99, green:0.92, blue:0.55, alpha:1.0)
-        //gameOverNode.position = CGPoint(x: UIScreen.main.bounds.size.width / 2, y: 485)
-        //bestScoreNode.position = CGPoint(x: UIScreen.main.bounds.size.width / 2, y: gameOverNode.position.y - 25)
-        playNode.position = CGPoint(x: UIScreen.main.bounds.size.width / 2 + playNode.size.width + 10, y: 0 - playNode.size.height * 2)
-        //playNode.position = CGPoint(x: UIScreen.main.bounds.size.width / 2 + playNode.size.width + 10, y: 250)
-        checkLeaderboardNode.position = CGPoint(x: UIScreen.main.bounds.size.width / 2, y: 0 - checkLeaderboardNode.size.height * 2)
-        customizeNode.position = CGPoint(x: UIScreen.main.bounds.size.width / 2 - customizeNode.size.width, y: 0 - checkLeaderboardNode.size.height * 2)
-        //customizeNode.position = CGPoint(x: UIScreen.main.bounds.size.width / 2 - customizeNode.size.width - 10, y: 0 - customizeNode.size.height * 2)
-        soundButton.position = CGPoint(x: UIScreen.main.bounds.size.width - soundButton.size.width, y: soundButton.size.height)
-        
-        
-        
-        
+        bestScoreNode.position = CGPoint(x: midX, y: size.height + 75)
+
+        // Buttons slide up from below the screen: customize, leaderboard, play.
+        let buttons = [customizeNode, leaderboardNode, playNode]
+        for (i, button) in buttons.enumerated() {
+            button.size = buttonSize
+            button.zPosition = 10
+            button.position = CGPoint(x: midX, y: -buttonSize.height * 2)
+            addChild(button)
+            let x = midX + CGFloat(i - 1) * (buttonSize.width + 15)
+            button.run(SKAction.move(to: CGPoint(x: x, y: buttonY), duration: 0.5))
+        }
+
+        soundButton.position = CGPoint(x: size.width - soundButton.size.width,
+                                       y: bottomInset + soundButton.size.height)
+        addChild(soundButton)
         addChild(gameOverNode)
-        addChild(playNode)
         addChild(bestScoreNode)
-        addChild(checkLeaderboardNode)
-        addChild(customizeNode)
-        playNode.run(movePlayNode)
-        checkLeaderboardNode.run(moveCheckLeaderboardsNode)
-        customizeNode.run(moveCustomizeNode)
-        scoreNode.run(moveScoreNode)
-        gameOverNode.run(moveGameOverNode)
-        bestScoreNode.run(moveBestScoreNode)
-        //emitter?.run(SKAction.fadeOut(withDuration: 1))
-        //emitter?.isPaused = false
+
+        scoreNode.run(SKAction.move(to: CGPoint(x: midX, y: size.height * 0.547), duration: 0.5))
+        gameOverNode.run(SKAction.move(to: CGPoint(x: midX, y: size.height * 0.727), duration: 0.5))
+        bestScoreNode.run(SKAction.move(to: CGPoint(x: midX, y: size.height * 0.675), duration: 0.5))
     }
-    
-    public func hideScoreNode() {
-        scoreNode.isHidden = true
+
+    // MARK: - Touches
+
+    /// A button only responds once it is on screen, i.e. after game over.
+    private func isTouching(_ button: SKNode, at point: CGPoint) -> Bool {
+        button.parent != nil && button.contains(point)
     }
-    public func unHideScoreNode() {
-        scoreNode.isHidden = false
+
+    func touchBegan(at point: CGPoint) {
+        soundButton.alpha = isTouching(soundButton, at: point) ? 0.5 : 1.0
     }
-    public func getIfGameIsOver() -> Bool {
-        return gameIsOver
+
+    func touchMoved(to point: CGPoint) {
+        soundButton.alpha = isTouching(soundButton, at: point) ? 0.5 : 1.0
     }
-    
-    func playSound(soundVariable : SKAction)
-    {
-        if UserDefaults.standard.bool(forKey: MuteKey) == false {
-            run(soundVariable)
-        }
-        
-    }
-    
-    func handleSoundButtonHover(isHovering : Bool) {
-        if isHovering {
-            soundButton.alpha = 0.5
-        } else {
-            soundButton.alpha = 1.0
-        }
-    }
-    
-    func handleSoundButtonClick() {
-        if SoundManager.sharedInstance.toggleMute() {
-            //Is muted
-            soundButton.texture = soundButtonTextureOff
-        } else {
-            //Is not muted
-            soundButton.texture = soundButtonTexture
+
+    func touchEnded(at point: CGPoint) {
+        soundButton.alpha = 1.0
+
+        if isTouching(playNode, at: point) {
+            playButtonAction?()
+        } else if isTouching(leaderboardNode, at: point) {
+            leaderboardAction?()
+        } else if isTouching(customizeNode, at: point) {
+            customizeAction?()
+        } else if isTouching(soundButton, at: point) {
+            let muted = SoundManager.shared.toggleMute()
+            soundButton.texture = muted ? soundButtonTextureOff : soundButtonTexture
         }
     }
 }

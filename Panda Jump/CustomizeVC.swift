@@ -1,5 +1,5 @@
 //
-//  upgradesVC.swift
+//  CustomizeVC.swift
 //  Panda Jump
 //
 //  Created by Jack Darnell on 6/20/17.
@@ -9,103 +9,56 @@
 import UIKit
 
 class CustomizeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var coinsLabel: UILabel!
-    
-    let slideAnimation = SlideAnimationForward()
+
+    private let slideAnimation = SlideAnimationForward()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.delegate = self
         tableView.dataSource = self
-        
-        coinsLabel.text = "\(UserDefaults.standard.integer(forKey: CoinsKey))ƒ"
-
-        // Do any additional setup after loading the view.
     }
-    override func viewDidAppear(_ animated: Bool) {
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Refresh after coming back from a purchase or equip.
         tableView.reloadData()
-        coinsLabel.text = "\(UserDefaults.standard.integer(forKey: CoinsKey))ƒ"
+        coinsLabel.text = "\(GameData.coins)ƒ"
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        1
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return skins.count
+        skins.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let skin = skins[indexPath.row]
-        
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "CustomizeCell") as? CustomizeCell {
-            print("JACK: returned cell")
-            cell.configureCell(CharacterSkin: skin)
-            return cell
-        } else {
-            print("JACK: else returned MyLevelCell()")
-            return CustomizeCell()
-        }
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomizeCell", for: indexPath) as! CustomizeCell
+        cell.configure(with: skins[indexPath.row])
+        return cell
     }
-    
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //var index = indexPath.row
-        /*
-         if interstitial.isReady == true {
-         print("JACK: INTERSTITIAL IS READy")
-         interstitial.present(fromRootViewController: self)
-         
-         } else {
-         print("JACK: not ready")
-         
-         }
-         */
-        print(skins[indexPath.row])
-        print("didselectrow at index path")
-        if indexPath.row != skins.count {
-            self.performSegue(withIdentifier: "goToCustomizeObjectVC", sender: skins[indexPath.row])
-        }
-        //print(levels.count)
-        
-        
-        print("JACK: \(indexPath)")
+        tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "goToCustomizeObjectVC", sender: skins[indexPath.row])
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         let destination = segue.destination
+        // A custom transition only gets both views (and so always finishes) in full screen.
+        destination.modalPresentationStyle = .fullScreen
         destination.transitioningDelegate = slideAnimation
-        
-        if let destination = segue.destination as? CustomizeObjectVC {
-            if let chosenSkin = sender as? CharacterSkin {
-                destination._skin = chosenSkin
-            }
+
+        if let detail = destination as? CustomizeObjectVC, let skin = sender as? CharacterSkin {
+            detail.skin = skin
         }
-        
     }
-    
-    
+
     @IBAction func closeButtonPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

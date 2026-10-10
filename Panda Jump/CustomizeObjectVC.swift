@@ -15,83 +15,47 @@ class CustomizeObjectVC: UIViewController {
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var purchaseButton: UIButton!
     @IBOutlet weak var moneyLabel: UILabel!
-    
-    var indexOfSkin: Int!
-    
-    private var skin: CharacterSkin!
-    var _skin: CharacterSkin {
-        get {
-            return skin
-        } set {
-            skin = newValue
-        }
-    }
-    
+
+    var skin: CharacterSkin!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print("view did load")
-        print("SKIN: \(skin)")
-        imageView.image = self.skin.image
-        nameLabel.text = self.skin.name
-        descriptionTextView.text = self.skin.description
-        purchaseButton.setTitle("\(self.skin.price)", for: .normal)
-        moneyLabel.text = "\(UserDefaults.standard.integer(forKey: CoinsKey))"
-        
-        for (index, _skin) in skins.enumerated() {
-            if skin.name == _skin.name {
-                print(index)
-                indexOfSkin = index
-                //UserDefaults.standard.set(index, forKey: currentSkinIndexKey)
-            }
-        }
-        
-        if skin.owned == true && skin.equipped == false {
-            purchaseButton.setTitle("Equip", for: .normal)
-        } else if skin.owned == false {
-            purchaseButton.setTitle("\(skin.price)$", for: .normal)
-        } else if skin.equipped == true {
-            purchaseButton.setTitle("Equipped", for: .normal)
-        }
+        imageView.image = skin.image
+        nameLabel.text = skin.name
+        descriptionTextView.text = skin.description
+        refresh()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    private func refresh() {
+        moneyLabel.text = "\(GameData.coins)"
+
+        let title: String
+        if skin.isEquipped {
+            title = "Equipped"
+        } else if skin.isOwned {
+            title = "Equip"
+        } else {
+            title = "\(skin.price)$"
+        }
+        purchaseButton.setTitle(title, for: .normal)
     }
-    
+
     @IBAction func backButtonPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
-    
+
     @IBAction func purchaseButtonPressed(_ sender: Any) {
-        if skin.owned == true && skin.equipped == false {
-            skins[UserDefaults.standard.integer(forKey: currentSkinIndexKey)].undoEquip()
+        if skin.isEquipped {
+            return
+        } else if skin.isOwned {
             skin.equip()
-            UserDefaults.standard.set(indexOfSkin, forKey: currentSkinIndexKey)
-            purchaseButton.setTitle("Equipped", for: .normal)
-        } else if skin.owned == false {
-            //TODO PURCHASE SKIN CODE NEED TO BE BUILT
-            if UserDefaults.standard.integer(forKey: CoinsKey) < skin.price {
-                print("Dont have enough money for the skin") //TODO MAKE ALERT FOR THIS
-            } else {
-                let money = UserDefaults.standard.integer(forKey: CoinsKey) - skin.price
-                UserDefaults.standard.set(money, forKey: CoinsKey)
-                skin.purchaseSkin()
-                purchaseButton.setTitle("Equip", for: .normal)
-                moneyLabel.text = "\(UserDefaults.standard.integer(forKey: CoinsKey))"
-            }
-        } else if skin.equipped == true {
-            //skin already equipped do nothing maybe show the alert saying already purchased or something
+        } else if !skin.purchase() {
+            let alert = UIAlertController(title: "Not enough coins",
+                                          message: "You need \(skin.price - GameData.coins) more coins for \(skin.name).",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
         }
+        refresh()
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

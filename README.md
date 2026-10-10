@@ -20,12 +20,19 @@ Early in highschool I learned how to make iOS apps and I thought it would be fun
 - Banner ad at the top using google adsense (not much of a feature but a cool thing I learned).
 - Funny/encouraging text pops up when the user successfully jumps over a boulder
 
+### Running it
+1. Open `Panda Jump.xcodeproj` in Xcode (CocoaPods is no longer used, so there is no `.xcworkspace`).
+2. Xcode downloads the Google Mobile Ads package automatically through Swift Package Manager.
+3. Pick an iPhone simulator and press Run. The app targets iOS 16 and later.
+
+To run the automated play-through, choose **Product > Test**: the `Panda JumpUITests` target starts a game, dies, and visits the shop.
+The same test runs on GitHub Actions on a macOS runner (`.github/workflows/ios-simulator.yml`) and uploads screenshots as an artifact.
+
+The ad IDs in `Constants.swift` and `Info.plist` are Google's public test IDs. Replace them with your own AdMob IDs before shipping.
+
 ### Next Steps
 - Get computer running screen working and set it as the game start screen to help users understand how to to play.
-- Integrate computer running screen and regular game screen so it is seamless when a user presses to start. 
+- Integrate computer running screen and regular game screen so it is seamless when a user presses to start.
 
-### Bugs and Issues
-- Issue with sound, not sure if it is just in the simulator or if it happens on device. No audio out.
-- Crash when opening character, seems to be an issue with updating swift to the latest version or running the app on newer iOS versions.
-- Price of last character doesn't show up, guessing it is an array index issue but need to look into it further.
-- Gamecenter down, need dev license
+### Known Issues
+- Gamecenter needs a paid Apple Developer account and the leaderboard set up in App Store Connect. Without it the leaderboard button shows a sign-in message.

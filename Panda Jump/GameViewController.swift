@@ -6,165 +6,145 @@
 //  Copyright © 2017 Jack Darnell. All rights reserved.
 //
 
-import UIKit
-import SpriteKit
-import GameplayKit
 import GameKit
-import AVFoundation
-
+import GoogleMobileAds
+import SpriteKit
+import UIKit
 
 class GameViewController: UIViewController, GKGameCenterControllerDelegate {
-    
-    @available(iOS 6.0, *)
-    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
-        gameCenterViewController.dismiss(animated: true, completion: nil)
-    }
 
-    let slideAnimation = SlideAnimationForward()
-    var gcEnabled = Bool() // Check if the user has Game Center enabled
-    var gcDefaultLeaderBoard = String() // Check the default leaderboardID
-    
-    var score = 0
-    
-    // IMPORTANT: replace the red string below with your own Leaderboard ID (the one you've set in iTunes Connect)
-    let LEADERBOARD_ID = "grp.PandaJumnpTopScores"
+    private var skView: SKView { view as! SKView }
+    private var bannerView: BannerView?
+    private var hasPresentedFirstScene = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.ambient)
-            try AVAudioSession.sharedInstance().setActive(true)
-        }
-        catch let error as NSError {
-            print(error)
-        }
-        authenticateLocalPlayer()
-        
-        
-         //UserDefaults.standard.
-        let index = UserDefaults.standard.integer(forKey: currentSkinIndexKey)
-        skins[index].equip()
-        
-        let sceneNode = GameScene(size: view.frame.size) //this loads the menu scene as default
-        sceneNode.viewController = self
-        
-        //UserDefaults.standard.set(1000, forKey: CoinsKey)
-        
-        if let view = self.view as? SKView? {
-            if skins[UserDefaults.standard.integer(forKey: currentSkinIndexKey)].name == devSkin.name {
-                view?.showsPhysics = true
-                view?.showsFPS = true
-                view?.showsNodeCount = true
-                view?.showsFields = true
-            } else {
-                view?.showsPhysics = false
-                view?.showsFPS = false
-                view?.showsNodeCount = false
-                view?.showsFields = false
-            }
-            view?.presentScene(sceneNode)
-            view?.ignoresSiblingOrder = true
-            //view.showsPhysics = true
-            //view?.showsFPS = true
-            //view?.showsNodeCount = true
-        }
+        skView.ignoresSiblingOrder = true
 
-        
+        let center = NotificationCenter.default
+        center.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+        center.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+        // UI tests skip Game Center so its sign-in sheet can't cover the game.
+        if !ProcessInfo.processInfo.arguments.contains("-UITesting") {
+            authenticateLocalPlayer()
+        }
+        SoundManager.shared.startPlaying()
     }
 
-    override var shouldAutorotate: Bool {
-        return false
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Wait for the first layout so the view size and safe-area insets are real.
+        guard !hasPresentedFirstScene, view.bounds.width > 0 else { return }
+        hasPresentedFirstScene = true
+        setUpBanner()
+        startNewGame(transition: nil)
     }
 
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
+    override var prefersStatusBarHidden: Bool { true }
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .portrait }
+
+    // MARK: - Game
+
+    /// Space at the top of the screen the game should keep clear (notch + banner ad).
+    private var topInset: CGFloat {
+        view.safeAreaInsets.top + (bannerView?.adSize.size.height ?? 0)
+    }
+
+    func startNewGame(transition: SKTransition? = SKTransition.fade(with: .black, duration: 0.5)) {
+        let scene = GameScene(size: view.bounds.size)
+        scene.scaleMode = .aspectFill
+        scene.gameViewController = self
+        scene.topInset = topInset
+        scene.bottomInset = view.safeAreaInsets.bottom
+
+        // The Dev skin turns on SpriteKit's debug overlays.
+        let debug = GameData.isDevSkinEquipped
+        skView.showsPhysics = debug
+        skView.showsFPS = debug
+        skView.showsNodeCount = debug
+
+        if let transition = transition {
+            skView.presentScene(scene, transition: transition)
         } else {
-            return .all
+            skView.presentScene(scene)
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
+    @objc private func appWillResignActive() {
+        skView.isPaused = true
     }
 
-    override var prefersStatusBarHidden: Bool {
-        return true
+    @objc private func appDidBecomeActive() {
+        skView.isPaused = false
     }
-    func authenticateLocalPlayer() {
-        let localPlayer: GKLocalPlayer = GKLocalPlayer.local
-        
-        localPlayer.authenticateHandler = {(ViewController, error) -> Void in
-            if((ViewController) != nil) {
-                // 1. Show login if player is not logged in
-                self.present(ViewController!, animated: true, completion: nil)
-            } else if (localPlayer.isAuthenticated) {
-                // 2. Player is already authenticated & logged in, load game center
-                self.gcEnabled = true
-                
-                // Get the default leaderboard ID
-                localPlayer.loadDefaultLeaderboardIdentifier(completionHandler: { (leaderboardIdentifer, error) in
-                    if error != nil { print(error)
-                    } else { self.gcDefaultLeaderBoard = leaderboardIdentifer! }
-                })
-                
-            } else {
-                // 3. Game center is not enabled on the users device
-                self.gcEnabled = false
-                print("Local player could not be authenticated!")
-                print(error)
-            }
-        }
-    }
-    
-    public func uploadHighScore(score: Int){
-        print(score)
-        let bestScoreInt = GKScore(leaderboardIdentifier: LEADERBOARD_ID)
-        bestScoreInt.value = Int64(score)
-        GKScore.report([bestScoreInt]) { (error) in
-            if error != nil {
-                print(error!.localizedDescription)
-            } else {
-                print("Best Score submitted to your Leaderboard!")
-            }
-        }
 
+    // MARK: - Ads
+
+    private func setUpBanner() {
+        let banner = BannerView(adSize: largeAnchoredAdaptiveBanner(width: view.bounds.width))
+        banner.adUnitID = BannerAdUnitID
+        banner.rootViewController = self
+        banner.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(banner)
+        NSLayoutConstraint.activate([
+            banner.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            banner.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        banner.load(Request())
+        bannerView = banner
     }
-    
-    public func checkLeaderboard() {
-        print("Checking Leaderboard")
-        let gcVC = GKGameCenterViewController()
-        gcVC.gameCenterDelegate = self
-        gcVC.viewState = .leaderboards
-        gcVC.leaderboardIdentifier = LEADERBOARD_ID
-        //self.present(gcVC, animated: true, completion: nil)
-        
-        if let topController = UIApplication.shared.keyWindow?.rootViewController {
-            print(topController)
-            topController.present(gcVC, animated: true, completion: nil)
-        }
-        //let vc = self
-       
-        
-        //vc.present(gcVC, animated: true, completion: nil)
-        
+
+    // MARK: - Customize screen
+
+    func showCustomize() {
+        guard presentedViewController == nil else { return }
+        performSegue(withIdentifier: "showCustomizeSegue", sender: self)
     }
-    
-    /*
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destination = segue.destination
-        destination.transitioningDelegate = SlideAnimation()
+        // Since iOS 13 modals default to a card that can be swiped away; the game expects full screen.
+        segue.destination.modalPresentationStyle = .fullScreen
     }
- */
-    
-    public func goToCustomizeVC() {
-        
-        
-        if let topController = UIApplication.shared.keyWindow?.rootViewController {
-            print(topController)
-            topController.performSegue(withIdentifier: "showCustomizeSegue", sender: nil)
+
+    // MARK: - Game Center
+
+    private func authenticateLocalPlayer() {
+        GKLocalPlayer.local.authenticateHandler = { [weak self] loginViewController, error in
+            if let loginViewController = loginViewController {
+                self?.present(loginViewController, animated: true)
+            } else if let error = error {
+                print("Game Center unavailable: \(error.localizedDescription)")
+            }
         }
     }
-        
+
+    func submitHighScore(_ score: Int) {
+        guard GKLocalPlayer.local.isAuthenticated else { return }
+        GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local, leaderboardIDs: [LeaderboardID]) { error in
+            if let error = error {
+                print("Failed to submit score: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func showLeaderboard() {
+        guard presentedViewController == nil else { return }
+        guard GKLocalPlayer.local.isAuthenticated else {
+            let alert = UIAlertController(title: "Game Center",
+                                          message: "Sign in to Game Center in the Settings app to see the leaderboard.",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+            return
+        }
+        let gameCenterVC = GKGameCenterViewController(leaderboardID: LeaderboardID, playerScope: .global, timeScope: .allTime)
+        gameCenterVC.gameCenterDelegate = self
+        present(gameCenterVC, animated: true)
+    }
+
+    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        gameCenterViewController.dismiss(animated: true)
+    }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,14 +20,10 @@
 		51463C1C1EA0297B00DF6EF6 /* smoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = 51463C1B1EA0297B00DF6EF6 /* smoke.sks */; };
 		5168CED01EE0E81600144572 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5168CECF1EE0E81600144572 /* GameKit.framework */; };
 		516B8A131F7406D3001BF786 /* SlideAnimationDismissed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B8A121F7406D3001BF786 /* SlideAnimationDismissed.swift */; };
-		517A53691E81FDEF000B82E9 /* BackroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517A53681E81FDEF000B82E9 /* BackroundNode.swift */; };
-		517A536B1E820517000B82E9 /* BarrelSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517A536A1E820517000B82E9 /* BarrelSprite.swift */; };
+		517A53691E81FDEF000B82E9 /* BackgroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517A53681E81FDEF000B82E9 /* BackgroundNode.swift */; };
 		517A536D1E821057000B82E9 /* HudNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517A536C1E821057000B82E9 /* HudNode.swift */; };
 		517A536F1E831779000B82E9 /* PlayerSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517A536E1E831779000B82E9 /* PlayerSprite.swift */; };
-		51BD39F31E84B2C5005C5ED2 /* ScoreNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BD39F21E84B2C5005C5ED2 /* ScoreNode.swift */; };
-		51BD39F51E85977A005C5ED2 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BD39F41E85977A005C5ED2 /* StartScene.swift */; };
 		51BD39F71E85BCBB005C5ED2 /* Pixel Digivolve.otf in Resources */ = {isa = PBXBuildFile; fileRef = 51BD39F61E85BCBB005C5ED2 /* Pixel Digivolve.otf */; };
-		51BD39FB1E86180C005C5ED2 /* ComputerPlayingStartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BD39FA1E86180C005C5ED2 /* ComputerPlayingStartScene.swift */; };
 		51BD39FD1E87048B005C5ED2 /* FloorSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BD39FC1E87048B005C5ED2 /* FloorSprite.swift */; };
 		51CE3F191F4E6B160091BBEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51D7E95C1E80B6A5009B3B7F /* Assets.xcassets */; };
 		51CE3F1B1F4E6C4B0091BBEF /* coinSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 51CE3F1A1F4E6B570091BBEF /* coinSound.wav */; };
@@ -37,13 +33,26 @@
 		51D7E95B1E80B6A5009B3B7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D7E9591E80B6A5009B3B7F /* Main.storyboard */; };
 		51D7E9601E80B6A5009B3B7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D7E95E1E80B6A5009B3B7F /* LaunchScreen.storyboard */; };
 		51D7E96C1E80B758009B3B7F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E96B1E80B758009B3B7F /* Constants.swift */; };
-		823FCF6FF00CB44AE688CF29 /* Pods_Panda_Jump.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DBE89CE39CDA7D848407781 /* Pods_Panda_Jump.framework */; };
+		A1B2C3D40000000000000002 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40000000000000001 /* SceneDelegate.swift */; };
+		A1B2C3D40000000000000005 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = A1B2C3D40000000000000004 /* GoogleMobileAds */; };
+		A1B2C3D40000000000000010 /* bensound-clearday.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51006DA01F6237310096F772 /* bensound-clearday.mp3 */; };
+		A1B2C3D40000000000000011 /* bensound-jazzcomedy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51006DA11F6237310096F772 /* bensound-jazzcomedy.mp3 */; };
+		A1B2C3D40000000000000012 /* bensound-jazzyfrenchy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51006DA21F6237310096F772 /* bensound-jazzyfrenchy.mp3 */; };
+		A1B2C3D40000000000000013 /* bensound-littleidea.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 51006DA31F6237310096F772 /* bensound-littleidea.mp3 */; };
+		A1B2C3D40000000000000022 /* PandaJumpUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40000000000000021 /* PandaJumpUITests.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A1B2C3D4000000000000002B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 51D7E9441E80B6A5009B3B7F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 51D7E94B1E80B6A5009B3B7F;
+			remoteInfo = "Panda Jump";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		0DBE89CE39CDA7D848407781 /* Pods_Panda_Jump.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Panda_Jump.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		11D905F76D7BBE89CE74F8F2 /* Pods-Panda Jump.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Panda Jump.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Panda Jump/Pods-Panda Jump.debug.xcconfig"; sourceTree = "<group>"; };
-		3E7B118B36DCE86CA3D530E4 /* Pods-Panda Jump.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Panda Jump.release.xcconfig"; path = "Pods/Target Support Files/Pods-Panda Jump/Pods-Panda Jump.release.xcconfig"; sourceTree = "<group>"; };
 		51006D9C1F618EA20096F772 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		51006DA01F6237310096F772 /* bensound-clearday.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bensound-clearday.mp3"; sourceTree = "<group>"; };
 		51006DA11F6237310096F772 /* bensound-jazzcomedy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bensound-jazzcomedy.mp3"; sourceTree = "<group>"; };
@@ -61,14 +70,10 @@
 		51463C1B1EA0297B00DF6EF6 /* smoke.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = smoke.sks; sourceTree = "<group>"; };
 		5168CECF1EE0E81600144572 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		516B8A121F7406D3001BF786 /* SlideAnimationDismissed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideAnimationDismissed.swift; sourceTree = "<group>"; };
-		517A53681E81FDEF000B82E9 /* BackroundNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackroundNode.swift; sourceTree = "<group>"; };
-		517A536A1E820517000B82E9 /* BarrelSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarrelSprite.swift; sourceTree = "<group>"; };
+		517A53681E81FDEF000B82E9 /* BackgroundNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundNode.swift; sourceTree = "<group>"; };
 		517A536C1E821057000B82E9 /* HudNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudNode.swift; sourceTree = "<group>"; };
 		517A536E1E831779000B82E9 /* PlayerSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerSprite.swift; sourceTree = "<group>"; };
-		51BD39F21E84B2C5005C5ED2 /* ScoreNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreNode.swift; sourceTree = "<group>"; };
-		51BD39F41E85977A005C5ED2 /* StartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
 		51BD39F61E85BCBB005C5ED2 /* Pixel Digivolve.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pixel Digivolve.otf"; sourceTree = "<group>"; };
-		51BD39FA1E86180C005C5ED2 /* ComputerPlayingStartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComputerPlayingStartScene.swift; sourceTree = "<group>"; };
 		51BD39FC1E87048B005C5ED2 /* FloorSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorSprite.swift; sourceTree = "<group>"; };
 		51CE3F1A1F4E6B570091BBEF /* coinSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coinSound.wav; sourceTree = "<group>"; };
 		51D7E94C1E80B6A5009B3B7F /* Panda Jump.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Panda Jump.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +85,9 @@
 		51D7E95F1E80B6A5009B3B7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		51D7E9611E80B6A5009B3B7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51D7E96B1E80B758009B3B7F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A1B2C3D40000000000000001 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		A1B2C3D40000000000000020 /* Panda JumpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Panda JumpUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1B2C3D40000000000000021 /* PandaJumpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PandaJumpUITests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,23 +95,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				823FCF6FF00CB44AE688CF29 /* Pods_Panda_Jump.framework in Frameworks */,
 				5168CED01EE0E81600144572 /* GameKit.framework in Frameworks */,
+				A1B2C3D40000000000000005 /* GoogleMobileAds in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1B2C3D40000000000000026 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1FE6D03A7F928BACC20202A0 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				11D905F76D7BBE89CE74F8F2 /* Pods-Panda Jump.debug.xcconfig */,
-				3E7B118B36DCE86CA3D530E4 /* Pods-Panda Jump.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		51006D9F1F6237310096F772 /* Music */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,8 +162,8 @@
 			children = (
 				512104BC1F7346A700A2E907 /* VC Transitions */,
 				51D7E94E1E80B6A5009B3B7F /* Panda Jump */,
+				A1B2C3D40000000000000023 /* Panda JumpUITests */,
 				51D7E94D1E80B6A5009B3B7F /* Products */,
-				1FE6D03A7F928BACC20202A0 /* Pods */,
 				E66AB36E4ECB17458548870E /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -166,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				51D7E94C1E80B6A5009B3B7F /* Panda Jump.app */,
+				A1B2C3D40000000000000020 /* Panda JumpUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -176,6 +183,7 @@
 				51229EA01F66D4B100B925FA /* jumping_sound.wav */,
 				51CE3F1A1F4E6B570091BBEF /* coinSound.wav */,
 				51D7E94F1E80B6A5009B3B7F /* AppDelegate.swift */,
+				A1B2C3D40000000000000001 /* SceneDelegate.swift */,
 				51006D9C1F618EA20096F772 /* SoundManager.swift */,
 				511A10F01F1C334C005447D9 /* Model */,
 				51463C0A1EA0256300DF6EF6 /* Trails */,
@@ -191,11 +199,9 @@
 		51D7E9671E80B6F4009B3B7F /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
-				517A53681E81FDEF000B82E9 /* BackroundNode.swift */,
-				517A536A1E820517000B82E9 /* BarrelSprite.swift */,
+				517A53681E81FDEF000B82E9 /* BackgroundNode.swift */,
 				517A536C1E821057000B82E9 /* HudNode.swift */,
 				517A536E1E831779000B82E9 /* PlayerSprite.swift */,
-				51BD39F21E84B2C5005C5ED2 /* ScoreNode.swift */,
 				51BD39FC1E87048B005C5ED2 /* FloorSprite.swift */,
 			);
 			name = Sprites;
@@ -205,8 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				51D7E9551E80B6A5009B3B7F /* GameScene.swift */,
-				51BD39F41E85977A005C5ED2 /* StartScene.swift */,
-				51BD39FA1E86180C005C5ED2 /* ComputerPlayingStartScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -239,9 +243,16 @@
 			isa = PBXGroup;
 			children = (
 				5168CECF1EE0E81600144572 /* GameKit.framework */,
-				0DBE89CE39CDA7D848407781 /* Pods_Panda_Jump.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A1B2C3D40000000000000023 /* Panda JumpUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D40000000000000021 /* PandaJumpUITests.swift */,
+			);
+			path = "Panda JumpUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,21 +262,39 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 51D7E9641E80B6A5009B3B7F /* Build configuration list for PBXNativeTarget "Panda Jump" */;
 			buildPhases = (
-				EC233BF6C748FC7D1DD36883 /* [CP] Check Pods Manifest.lock */,
 				51D7E9481E80B6A5009B3B7F /* Sources */,
 				51D7E9491E80B6A5009B3B7F /* Frameworks */,
 				51D7E94A1E80B6A5009B3B7F /* Resources */,
-				289C8374F845AE60B6D1056B /* [CP] Embed Pods Frameworks */,
-				67F36352B5ED85C389B3F29F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Panda Jump";
+			packageProductDependencies = (
+				A1B2C3D40000000000000004 /* GoogleMobileAds */,
+			);
 			productName = "Panda Jump";
 			productReference = 51D7E94C1E80B6A5009B3B7F /* Panda Jump.app */;
 			productType = "com.apple.product-type.application";
+		};
+		A1B2C3D40000000000000024 /* Panda JumpUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1B2C3D40000000000000028 /* Build configuration list for PBXNativeTarget "Panda JumpUITests" */;
+			buildPhases = (
+				A1B2C3D40000000000000025 /* Sources */,
+				A1B2C3D40000000000000026 /* Frameworks */,
+				A1B2C3D40000000000000027 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1B2C3D4000000000000002C /* PBXTargetDependency */,
+			);
+			name = "Panda JumpUITests";
+			productName = "Panda JumpUITests";
+			productReference = A1B2C3D40000000000000020 /* Panda JumpUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -287,10 +316,14 @@
 							};
 						};
 					};
+					A1B2C3D40000000000000024 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 51D7E94B1E80B6A5009B3B7F;
+					};
 				};
 			};
 			buildConfigurationList = 51D7E9471E80B6A5009B3B7F /* Build configuration list for PBXProject "Panda Jump" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -299,11 +332,15 @@
 				Base,
 			);
 			mainGroup = 51D7E9431E80B6A5009B3B7F;
+			packageReferences = (
+				A1B2C3D40000000000000003 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+			);
 			productRefGroup = 51D7E94D1E80B6A5009B3B7F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				51D7E94B1E80B6A5009B3B7F /* Panda Jump */,
+				A1B2C3D40000000000000024 /* Panda JumpUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -322,58 +359,21 @@
 				51CE3F191F4E6B160091BBEF /* Assets.xcassets in Resources */,
 				51D7E9601E80B6A5009B3B7F /* LaunchScreen.storyboard in Resources */,
 				51463C141EA027A300DF6EF6 /* sparks.sks in Resources */,
+				A1B2C3D40000000000000010 /* bensound-clearday.mp3 in Resources */,
+				A1B2C3D40000000000000011 /* bensound-jazzcomedy.mp3 in Resources */,
+				A1B2C3D40000000000000012 /* bensound-jazzyfrenchy.mp3 in Resources */,
+				A1B2C3D40000000000000013 /* bensound-littleidea.mp3 in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1B2C3D40000000000000027 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		289C8374F845AE60B6D1056B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Panda Jump/Pods-Panda Jump-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		67F36352B5ED85C389B3F29F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Panda Jump/Pods-Panda Jump-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EC233BF6C748FC7D1DD36883 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		51D7E9481E80B6A5009B3B7F /* Sources */ = {
@@ -382,19 +382,16 @@
 			files = (
 				51D7E9561E80B6A5009B3B7F /* GameScene.swift in Sources */,
 				517A536F1E831779000B82E9 /* PlayerSprite.swift in Sources */,
-				51BD39F31E84B2C5005C5ED2 /* ScoreNode.swift in Sources */,
-				51BD39F51E85977A005C5ED2 /* StartScene.swift in Sources */,
 				51D7E9581E80B6A5009B3B7F /* GameViewController.swift in Sources */,
 				513081E31F1F13C8002C6BB6 /* CustomizeObjectVC.swift in Sources */,
-				517A536B1E820517000B82E9 /* BarrelSprite.swift in Sources */,
 				511A10EC1F1BEF6C005447D9 /* CustomizeCell.swift in Sources */,
 				512104BB1F73469E00A2E907 /* SlideAnimationForward.swift in Sources */,
 				511A10F21F1C3359005447D9 /* CharacterSkin.swift in Sources */,
 				51D7E9501E80B6A5009B3B7F /* AppDelegate.swift in Sources */,
+				A1B2C3D40000000000000002 /* SceneDelegate.swift in Sources */,
 				517A536D1E821057000B82E9 /* HudNode.swift in Sources */,
-				51BD39FB1E86180C005C5ED2 /* ComputerPlayingStartScene.swift in Sources */,
 				51BD39FD1E87048B005C5ED2 /* FloorSprite.swift in Sources */,
-				517A53691E81FDEF000B82E9 /* BackroundNode.swift in Sources */,
+				517A53691E81FDEF000B82E9 /* BackgroundNode.swift in Sources */,
 				513081E51F1FBD60002C6BB6 /* RoundButton.swift in Sources */,
 				51235E9D1EFA0D810083578F /* CustomizeVC.swift in Sources */,
 				51D7E96C1E80B758009B3B7F /* Constants.swift in Sources */,
@@ -403,7 +400,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A1B2C3D40000000000000025 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1B2C3D40000000000000022 /* PandaJumpUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A1B2C3D4000000000000002C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 51D7E94B1E80B6A5009B3B7F /* Panda Jump */;
+			targetProxy = A1B2C3D4000000000000002B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		51D7E9591E80B6A5009B3B7F /* Main.storyboard */ = {
@@ -465,7 +478,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -509,7 +522,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -520,13 +533,16 @@
 		};
 		51D7E9651E80B6A5009B3B7F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 11D905F76D7BBE89CE74F8F2 /* Pods-Panda Jump.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Y3FG22HM56;
 				INFOPLIST_FILE = "Panda Jump/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.JackDarnell.Panda-Jump";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -535,16 +551,47 @@
 		};
 		51D7E9661E80B6A5009B3B7F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E7B118B36DCE86CA3D530E4 /* Pods-Panda Jump.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Y3FG22HM56;
 				INFOPLIST_FILE = "Panda Jump/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.JackDarnell.Panda-Jump";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		A1B2C3D40000000000000029 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.JackDarnell.Panda-JumpUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Panda Jump";
+			};
+			name = Debug;
+		};
+		A1B2C3D4000000000000002A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.JackDarnell.Panda-JumpUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Panda Jump";
 			};
 			name = Release;
 		};
@@ -569,7 +616,35 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		A1B2C3D40000000000000028 /* Build configuration list for PBXNativeTarget "Panda JumpUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1B2C3D40000000000000029 /* Debug */,
+				A1B2C3D4000000000000002A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A1B2C3D40000000000000003 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A1B2C3D40000000000000004 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1B2C3D40000000000000003 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 51D7E9441E80B6A5009B3B7F /* Project object */;
 }

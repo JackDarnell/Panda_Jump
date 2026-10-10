@@ -17,7 +17,6 @@ class RoundButton: UIButton {
         layer.shadowRadius = 5
         layer.shadowOffset = CGSize(width: 1, height: 1)
         imageView?.contentMode = .scaleAspectFit
-        //height of frame hasnt been calculated so dont use this for making the button round
     }
     override func layoutSubviews() {
         super.layoutSubviews()

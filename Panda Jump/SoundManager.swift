@@ -7,75 +7,73 @@
 //
 
 import AVFoundation
+import SpriteKit
 
-class SoundManager : NSObject, AVAudioPlayerDelegate {
-    static let sharedInstance = SoundManager()
-    private(set) var isMuted = false
-    
-    var audioPlayer : AVAudioPlayer?
-    var trackPosition = 0
-    
-    //Music: http://www.bensound.com/royalty-free-music
-    static private let tracks = [
+final class SoundManager: NSObject, AVAudioPlayerDelegate {
+    static let shared = SoundManager()
+
+    private(set) var isMuted: Bool
+    private var audioPlayer: AVAudioPlayer?
+    private var trackPosition: Int
+
+    // Music: http://www.bensound.com/royalty-free-music
+    private static let tracks = [
         "bensound-clearday",
         "bensound-jazzcomedy",
         "bensound-jazzyfrenchy",
         "bensound-littleidea"
     ]
-    
+
+    static let jumpSound = SKAction.playSoundFileNamed("jumping_sound.wav", waitForCompletion: false)
+    static let coinSound = SKAction.playSoundFileNamed("coinSound.wav", waitForCompletion: false)
+
     private override init() {
-        //This is private so you can only have one Sound Manager ever.
-        trackPosition = Int(arc4random_uniform(UInt32(SoundManager.tracks.count)))
-        
-        let defaults = UserDefaults.standard
-        
-        isMuted = defaults.bool(forKey: MuteKey)
+        trackPosition = Int.random(in: 0..<SoundManager.tracks.count)
+        isMuted = UserDefaults.standard.bool(forKey: MuteKey)
+        super.init()
     }
-    
-    public func startPlaying() {
-        /*
-        if !isMuted && (audioPlayer == nil || audioPlayer?.isPlaying == false) {
-            let soundURL = Bundle.main.url(forResource: SoundManager.tracks[trackPosition], withExtension: "mp3")
-            
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: soundURL!)
-                audioPlayer?.delegate = self
-            } catch {
-                print("audio player failed to load")
-                
-                startPlaying()
-            }
-            
-            audioPlayer?.prepareToPlay()
-            
-            audioPlayer?.play()
-            
+
+    /// Plays a sound effect on `node` unless the game is muted.
+    func play(_ sound: SKAction, on node: SKNode) {
+        guard !isMuted else { return }
+        node.run(sound)
+    }
+
+    func startPlaying() {
+        guard !isMuted, audioPlayer?.isPlaying != true else { return }
+
+        // Try each track once, so a missing file can't loop forever.
+        for _ in SoundManager.tracks {
+            let track = SoundManager.tracks[trackPosition]
             trackPosition = (trackPosition + 1) % SoundManager.tracks.count
-        } else {
-            print("Audio player is already playing!")
+
+            guard let url = Bundle.main.url(forResource: track, withExtension: "mp3"),
+                  let player = try? AVAudioPlayer(contentsOf: url) else {
+                continue
+            }
+            player.delegate = self
+            player.volume = 0.5
+            player.prepareToPlay()
+            player.play()
+            audioPlayer = player
+            return
         }
- */
     }
-    
+
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        //Just play the next track
-        //startPlaying()
+        startPlaying()
     }
-    
+
+    @discardableResult
     func toggleMute() -> Bool {
-        isMuted = !isMuted
-        
-        let defaults = UserDefaults.standard
-        defaults.set(isMuted, forKey: MuteKey)
-        defaults.synchronize()
-        
+        isMuted.toggle()
+        UserDefaults.standard.set(isMuted, forKey: MuteKey)
+
         if isMuted {
             audioPlayer?.stop()
         } else {
             startPlaying()
         }
-        
         return isMuted
     }
 }
-
