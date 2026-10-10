@@ -10,3 +10,4 @@ build/
 # Swift Package Manager
 .swiftpm/
 .build/
+build-device/

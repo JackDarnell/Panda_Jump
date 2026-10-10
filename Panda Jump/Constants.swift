@@ -20,6 +20,13 @@ let ScoreCategory: UInt32 = 0x1 << 5
 let PixelFontName = "PixelDigivolve"
 let CoinColor = SKColor(red: 0.99, green: 0.92, blue: 0.55, alpha: 1.0)
 
+/// Shared by the floor and the boulders so they stay locked together on every screen size.
+let ScrollSpeed: CGFloat = 195.0
+
+// Set to true to show the banner ad. While false the ad SDK never starts and the
+// game gets the full screen.
+let AdsEnabled = false
+
 // Google's public test IDs. Swap in your own AdMob IDs (here and in Info.plist) before shipping.
 let BannerAdUnitID = "ca-app-pub-3940256099942544/2435281174"
 let LeaderboardID = "grp.PandaJumnpTopScores"
@@ -28,7 +35,10 @@ let LeaderboardID = "grp.PandaJumnpTopScores"
 
 private let CoinsKey = "TOTAL_COINS"
 private let ScoreKey = "HIGHSCORE"
-let MuteKey = "APP_MUTED"
+private let MusicEnabledKey = "MUSIC_ENABLED"
+private let SoundEffectsEnabledKey = "SOUND_EFFECTS_ENABLED"
+/// Superseded by the two keys above, which split music from sound effects.
+private let LegacyMuteKey = "APP_MUTED"
 private let currentSkinIndexKey = "CURRENT_SKIN"
 
 /// Everything the game persists between launches, in one place.
@@ -55,6 +65,25 @@ enum GameData {
     }
 
     static var currentSkin: CharacterSkin { skins[currentSkinIndex] }
+
+    static var isMusicEnabled: Bool {
+        get { audioFlag(MusicEnabledKey) }
+        set { defaults.set(newValue, forKey: MusicEnabledKey) }
+    }
+
+    static var isSoundEffectsEnabled: Bool {
+        get { audioFlag(SoundEffectsEnabledKey) }
+        set { defaults.set(newValue, forKey: SoundEffectsEnabledKey) }
+    }
+
+    /// Defaults to on, falling back to the old single mute flag so players who
+    /// muted before music and effects were split stay muted.
+    private static func audioFlag(_ key: String) -> Bool {
+        guard defaults.object(forKey: key) != nil else {
+            return !defaults.bool(forKey: LegacyMuteKey)
+        }
+        return defaults.bool(forKey: key)
+    }
 
     static var isDevSkinEquipped: Bool { currentSkin.name == devSkin.name }
 }

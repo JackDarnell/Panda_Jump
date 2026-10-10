@@ -25,6 +25,7 @@
 		517A536F1E831779000B82E9 /* PlayerSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517A536E1E831779000B82E9 /* PlayerSprite.swift */; };
 		51BD39F71E85BCBB005C5ED2 /* Pixel Digivolve.otf in Resources */ = {isa = PBXBuildFile; fileRef = 51BD39F61E85BCBB005C5ED2 /* Pixel Digivolve.otf */; };
 		51BD39FD1E87048B005C5ED2 /* FloorSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BD39FC1E87048B005C5ED2 /* FloorSprite.swift */; };
+		51BD3A011E870500005C5ED3 /* ToggleButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BD3A001E870500005C5ED3 /* ToggleButtonNode.swift */; };
 		51CE3F191F4E6B160091BBEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51D7E95C1E80B6A5009B3B7F /* Assets.xcassets */; };
 		51CE3F1B1F4E6C4B0091BBEF /* coinSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 51CE3F1A1F4E6B570091BBEF /* coinSound.wav */; };
 		51D7E9501E80B6A5009B3B7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D7E94F1E80B6A5009B3B7F /* AppDelegate.swift */; };
@@ -75,6 +76,7 @@
 		517A536E1E831779000B82E9 /* PlayerSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerSprite.swift; sourceTree = "<group>"; };
 		51BD39F61E85BCBB005C5ED2 /* Pixel Digivolve.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pixel Digivolve.otf"; sourceTree = "<group>"; };
 		51BD39FC1E87048B005C5ED2 /* FloorSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorSprite.swift; sourceTree = "<group>"; };
+		51BD3A001E870500005C5ED3 /* ToggleButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleButtonNode.swift; sourceTree = "<group>"; };
 		51CE3F1A1F4E6B570091BBEF /* coinSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coinSound.wav; sourceTree = "<group>"; };
 		51D7E94C1E80B6A5009B3B7F /* Panda Jump.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Panda Jump.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		51D7E94F1E80B6A5009B3B7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				517A536C1E821057000B82E9 /* HudNode.swift */,
 				517A536E1E831779000B82E9 /* PlayerSprite.swift */,
 				51BD39FC1E87048B005C5ED2 /* FloorSprite.swift */,
+				51BD3A001E870500005C5ED3 /* ToggleButtonNode.swift */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				A1B2C3D40000000000000002 /* SceneDelegate.swift in Sources */,
 				517A536D1E821057000B82E9 /* HudNode.swift in Sources */,
 				51BD39FD1E87048B005C5ED2 /* FloorSprite.swift in Sources */,
+				51BD3A011E870500005C5ED3 /* ToggleButtonNode.swift in Sources */,
 				517A53691E81FDEF000B82E9 /* BackgroundNode.swift in Sources */,
 				513081E51F1FBD60002C6BB6 /* RoundButton.swift in Sources */,
 				51235E9D1EFA0D810083578F /* CustomizeVC.swift in Sources */,

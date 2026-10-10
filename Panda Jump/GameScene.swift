@@ -67,12 +67,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         backgroundNode.setup(size: size)
 
-        // Two floor tiles side by side that scroll left forever.
+        // Two floor tiles spaced exactly one tile apart, so the seam stays invisible as they wrap.
         let floor = FloorSprite.newInstance(sceneSize: size)
         let floor1 = FloorSprite.newInstance(sceneSize: size)
-        floor1.position = CGPoint(x: floor1.size.width - 10, y: 0)
-        let moveLeft = SKAction.moveBy(x: -floor.size.width, y: 0, duration: 5.129)
-        let moveReset = SKAction.moveBy(x: floor.size.width, y: 0, duration: 0)
+        floor1.position = CGPoint(x: FloorSprite.tileWidth, y: 0)
+        let scrollDuration = TimeInterval(FloorSprite.tileWidth / ScrollSpeed)
+        let moveLeft = SKAction.moveBy(x: -FloorSprite.tileWidth, y: 0, duration: scrollDuration)
+        let moveReset = SKAction.moveBy(x: FloorSprite.tileWidth, y: 0, duration: 0)
         let moveForever = SKAction.repeatForever(SKAction.sequence([moveLeft, moveReset]))
         floorSprites = [floor, floor1]
         for sprite in floorSprites {
@@ -187,7 +188,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreGate.physicsBody = gateBody
 
         // The gate is static, so it can't hit the world edge; remove it once its move finishes.
-        let moveLeft = SKAction.moveBy(x: -(size.width + 1000), y: 0, duration: 7.2)
+        let travel = size.width + 1000
+        let moveLeft = SKAction.moveBy(x: -travel, y: 0, duration: TimeInterval(travel / ScrollSpeed))
         addChild(barrelNode)
         addChild(scoreGate)
         barrelNode.run(moveLeft)

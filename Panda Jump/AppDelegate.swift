@@ -18,7 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         try? AVAudioSession.sharedInstance().setCategory(.ambient)
         try? AVAudioSession.sharedInstance().setActive(true)
 
-        MobileAds.shared.start()
+        if AdsEnabled {
+            MobileAds.shared.start()
+        }
         return true
     }
 

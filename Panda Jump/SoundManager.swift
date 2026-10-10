@@ -12,7 +12,25 @@ import SpriteKit
 final class SoundManager: NSObject, AVAudioPlayerDelegate {
     static let shared = SoundManager()
 
-    private(set) var isMuted: Bool
+    var isMusicEnabled: Bool {
+        didSet {
+            guard isMusicEnabled != oldValue else { return }
+            GameData.isMusicEnabled = isMusicEnabled
+            if isMusicEnabled {
+                startPlaying()
+            } else {
+                audioPlayer?.stop()
+            }
+        }
+    }
+
+    var isSoundEffectsEnabled: Bool {
+        didSet {
+            guard isSoundEffectsEnabled != oldValue else { return }
+            GameData.isSoundEffectsEnabled = isSoundEffectsEnabled
+        }
+    }
+
     private var audioPlayer: AVAudioPlayer?
     private var trackPosition: Int
 
@@ -29,18 +47,18 @@ final class SoundManager: NSObject, AVAudioPlayerDelegate {
 
     private override init() {
         trackPosition = Int.random(in: 0..<SoundManager.tracks.count)
-        isMuted = UserDefaults.standard.bool(forKey: MuteKey)
+        isMusicEnabled = GameData.isMusicEnabled
+        isSoundEffectsEnabled = GameData.isSoundEffectsEnabled
         super.init()
     }
 
-    /// Plays a sound effect on `node` unless the game is muted.
     func play(_ sound: SKAction, on node: SKNode) {
-        guard !isMuted else { return }
+        guard isSoundEffectsEnabled else { return }
         node.run(sound)
     }
 
     func startPlaying() {
-        guard !isMuted, audioPlayer?.isPlaying != true else { return }
+        guard isMusicEnabled, audioPlayer?.isPlaying != true else { return }
 
         // Try each track once, so a missing file can't loop forever.
         for _ in SoundManager.tracks {
@@ -62,18 +80,5 @@ final class SoundManager: NSObject, AVAudioPlayerDelegate {
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         startPlaying()
-    }
-
-    @discardableResult
-    func toggleMute() -> Bool {
-        isMuted.toggle()
-        UserDefaults.standard.set(isMuted, forKey: MuteKey)
-
-        if isMuted {
-            audioPlayer?.stop()
-        } else {
-            startPlaying()
-        }
-        return isMuted
     }
 }

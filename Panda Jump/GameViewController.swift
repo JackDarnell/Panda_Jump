@@ -37,6 +37,8 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
         // Wait for the first layout so the view size and safe-area insets are real.
         guard !hasPresentedFirstScene, view.bounds.width > 0 else { return }
         hasPresentedFirstScene = true
+        // Exceeding 60 also needs CADisableMinimumFrameDuration in Info.plist.
+        skView.preferredFramesPerSecond = view.window?.windowScene?.screen.maximumFramesPerSecond ?? 60
         setUpBanner()
         startNewGame(transition: nil)
     }
@@ -83,6 +85,8 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
     // MARK: - Ads
 
     private func setUpBanner() {
+        guard AdsEnabled else { return }
+
         let banner = BannerView(adSize: largeAnchoredAdaptiveBanner(width: view.bounds.width))
         banner.adUnitID = BannerAdUnitID
         banner.rootViewController = self

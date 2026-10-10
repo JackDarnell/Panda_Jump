@@ -17,9 +17,10 @@ class HudNode: SKNode {
     private let playNode = SKSpriteNode(imageNamed: "png_play_button")
     private let leaderboardNode = SKSpriteNode(imageNamed: "png_leaderboards_button")
     private let customizeNode = SKSpriteNode(imageNamed: "png_customize_button")
-    private let soundButtonTexture = SKTexture(imageNamed: "speaker_on")
-    private let soundButtonTextureOff = SKTexture(imageNamed: "speaker_off")
-    private var soundButton: SKSpriteNode!
+    private var musicButton: ToggleButtonNode!
+    private var soundEffectsButton: ToggleButtonNode!
+    /// Left-to-right order, which the bottom-right layout reverses.
+    private var audioButtons: [ToggleButtonNode] { [musicButton, soundEffectsButton] }
 
     private(set) var score = 0
     private(set) var isNewHighScore = false
@@ -50,8 +51,19 @@ class HudNode: SKNode {
         scoreNode.position = CGPoint(x: size.width / 2, y: topY - 110)
         scoreNode.zPosition = 10
 
-        soundButton = SKSpriteNode(texture: SoundManager.shared.isMuted ? soundButtonTextureOff : soundButtonTexture)
-        soundButton.zPosition = 20
+        musicButton = ToggleButtonNode(onTexture: SKTexture(imageNamed: "music_on"),
+                                       offTexture: SKTexture(imageNamed: "music_off"),
+                                       isOn: SoundManager.shared.isMusicEnabled)
+        musicButton.onToggle = { SoundManager.shared.isMusicEnabled = $0 }
+
+        soundEffectsButton = ToggleButtonNode(onTexture: SKTexture(imageNamed: "speaker_on"),
+                                              offTexture: SKTexture(imageNamed: "speaker_off"),
+                                              isOn: SoundManager.shared.isSoundEffectsEnabled)
+        soundEffectsButton.onToggle = { SoundManager.shared.isSoundEffectsEnabled = $0 }
+
+        for button in audioButtons {
+            button.zPosition = 20
+        }
 
         updateScoreboard()
         addChild(scoreNode)
@@ -117,9 +129,15 @@ class HudNode: SKNode {
             button.run(SKAction.move(to: CGPoint(x: x, y: buttonY), duration: 0.5))
         }
 
-        soundButton.position = CGPoint(x: size.width - soundButton.size.width,
-                                       y: bottomInset + soundButton.size.height)
-        addChild(soundButton)
+        let margin: CGFloat = 12
+        let spacing: CGFloat = 8
+        var right = size.width - margin
+        for button in audioButtons.reversed() {
+            button.position = CGPoint(x: right - button.size.width / 2,
+                                      y: bottomInset + margin + button.size.height / 2)
+            addChild(button)
+            right -= button.size.width + spacing
+        }
         addChild(gameOverNode)
         addChild(bestScoreNode)
 
@@ -135,16 +153,22 @@ class HudNode: SKNode {
         button.parent != nil && button.contains(point)
     }
 
+    private func updatePressedButton(at point: CGPoint?) {
+        for button in audioButtons {
+            button.setPressed(point.map { isTouching(button, at: $0) } ?? false)
+        }
+    }
+
     func touchBegan(at point: CGPoint) {
-        soundButton.alpha = isTouching(soundButton, at: point) ? 0.5 : 1.0
+        updatePressedButton(at: point)
     }
 
     func touchMoved(to point: CGPoint) {
-        soundButton.alpha = isTouching(soundButton, at: point) ? 0.5 : 1.0
+        updatePressedButton(at: point)
     }
 
     func touchEnded(at point: CGPoint) {
-        soundButton.alpha = 1.0
+        updatePressedButton(at: nil)
 
         if isTouching(playNode, at: point) {
             playButtonAction?()
@@ -152,9 +176,8 @@ class HudNode: SKNode {
             leaderboardAction?()
         } else if isTouching(customizeNode, at: point) {
             customizeAction?()
-        } else if isTouching(soundButton, at: point) {
-            let muted = SoundManager.shared.toggleMute()
-            soundButton.texture = muted ? soundButtonTextureOff : soundButtonTexture
+        } else if let button = audioButtons.first(where: { isTouching($0, at: point) }) {
+            button.toggle()
         }
     }
 }
