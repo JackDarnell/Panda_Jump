@@ -32,7 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private let titleNode = SKLabelNode(fontNamed: PixelFontName)
     private let instructionNode = SKLabelNode(fontNamed: PixelFontName)
     private let positiveReinforcementNode = SKLabelNode(fontNamed: PixelFontName)
-    private let positiveReinforcementArray = ["Great Job!", "Keep It Up!", "Way to Go!", "Wow", "Quise", "Good Work!", "Groovy", "Persevere!", "Impressive", "10/10 IGN", "Tuff", "Lit", "Ballin", "Savage", "Swish", "Swagtastic", "Supercilious", "Flip that", "Next Level", "Lotion", "CHIEF KEEF", "Gucci Gang", "navuzimetro", "Love Sosa", "I dont want friends I want Audi's", "D Rose D Rose D Rose", "Craaazzy Gooood!!", "Ricktacular", "^_^", "Does Starbucks Deliver?", "Live Más"]
+    private let positiveReinforcementArray = ["Great Job!", "Keep It Up!", "Way to Go!", "Wow", "Quise", "Good Work!", "Groovy", "Persevere!", "Impressive", "10/10 IGN", "Tuff", "Lit", "Ballin", "Savage", "Swish", "Swagtastic", "Supercilious", "Flip that", "Next Level", "navuzimetro", "I dont want friends I want Audi's", "D Rose D Rose D Rose", "Craaazzy Gooood!!", "Ricktacular", "^_^", "Does Starbucks Deliver?", "Live Más"]
     private let reinforcementColors: [SKColor] = [.blue, .red, .green, .yellow]
 
     // Built in didMove(to:) rather than sceneDidLoad() so the safe-area insets are known.

@@ -108,7 +108,7 @@ let normalPandaSkin = CharacterSkin(
 let soundcloudRapperSkin = CharacterSkin(
     name: "Jetski",
     price: 30,
-    description: "Ladies you have 30$ to build ur perfect man: \n$700 - Educated \n$500 - Rich\n$30 - Soundcloud Rapper\n$250 - Loyal",
+    description: "Dropped three mixtapes nobody asked for. Still waiting on that first play.",
     imageName: "soundcloudRapperV2_6",
     frames: pingPongFrames((2...6).map { "soundcloudRapperV2_\($0)" }) + [SKTexture(imageNamed: "soundcloudRapperV2_2"), SKTexture(imageNamed: "soundcloudRapperV2_1")],
     ownedKey: "SOUNDCLOUD_RAPPER_OWNED_KEY")
